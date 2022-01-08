@@ -1,0 +1,14 @@
+{
+    "name": "Flex Home",
+    "namespace": "Theme\\FlexHome\\",
+    "description": "Real Estate theme",
+    "author": "Botble Technologies",
+    "version": "2.31.4",
+    "required_plugins": [
+        "blog",
+        "contact",
+        "language",
+        "location",
+        "real-estate"
+    ]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Real Estate",
+    "namespace": "Botble\\RealEstate\\",
+    "provider": "Botble\\RealEstate\\Providers\\RealEstateServiceProvider",
+    "author": "Botble Technologies",
+    "url": "http://botble.com",
+    "version": "1.0",
+    "description": "Real estate supports with projects, properties and some others"
+}

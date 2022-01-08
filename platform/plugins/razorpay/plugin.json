@@ -1,0 +1,10 @@
+{
+    "name": "Razorpay Payment Gateway",
+    "namespace": "Botble\\Razorpay\\",
+    "provider": "Botble\\Razorpay\\Providers\\RazorpayServiceProvider",
+    "author": "Botble Technologies",
+    "url": "https://botble.com",
+    "version": "1.0",
+    "description": "Razorpay payment gateway integration",
+    "require": ["payment"]
+}

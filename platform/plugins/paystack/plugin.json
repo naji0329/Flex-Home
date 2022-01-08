@@ -1,0 +1,10 @@
+{
+    "name": "Paystack Payment Gateway",
+    "namespace": "Botble\\Paystack\\",
+    "provider": "Botble\\Paystack\\Providers\\PaystackServiceProvider",
+    "author": "Botble Technologies",
+    "url": "https://botble.com",
+    "version": "1.0",
+    "description": "Paystack payment gateway integration",
+    "require": ["payment"]
+}

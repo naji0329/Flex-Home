@@ -1,0 +1,8 @@
+{
+    "name": "botble/translation",
+    "description": "Translation plugin",
+    "type": "package",
+    "require": {
+        "symfony/var-exporter": "^5.0"
+    }
+}

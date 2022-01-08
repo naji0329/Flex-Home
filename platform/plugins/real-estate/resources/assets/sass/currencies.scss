@@ -1,0 +1,77 @@
+.max-width-1200 {
+    max-width: 1300px;
+}
+
+.swatches-container {
+    .header {
+        display: flex;
+        flex-direction: row;
+        font-weight: 700;
+        background-color: #36c6d3;
+        color: #ffffff;
+
+        > * {
+            float: left;
+            padding: 10px;
+            text-align: center;
+        }
+    }
+
+    .swatches-list {
+        float: left;
+        list-style: none;
+        margin: 0 0 15px;
+        padding: 0;
+        width: 100%;
+
+        li {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            position: relative;
+
+            + li {
+                margin-top: 1px;
+            }
+
+            &:nth-child(odd) {
+                background-color: #f0f0f0;
+            }
+
+            > * {
+                float: left;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .image-box-container {
+                width: 34px;
+                margin: 0 auto;
+                font-size: 0;
+
+                img {
+                    border: 1px solid #cccccc;
+                    width: 34px;
+                    height: 34px;
+                }
+            }
+        }
+    }
+
+    .swatch-item {
+        flex: 1;
+        max-width: 90px;
+    }
+
+    .swatch-is-default {
+        width: 90px;
+    }
+
+    .remove-item {
+        width: 50px;
+    }
+
+    .swatch-exchange-rate, .swatch-is-prefix-symbol, .swatch-decimals {
+        max-width: 145px;
+    }
+}

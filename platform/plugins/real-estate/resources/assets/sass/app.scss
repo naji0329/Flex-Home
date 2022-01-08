@@ -1,0 +1,108 @@
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+@import 'normalize';
+@import 'custom_bootstrap';
+@import 'header';
+@import 'footer';
+@import 'sidebar';
+@import 'user';
+@import 'setting';
+@import 'dashboard';
+@import 'avatar';
+@import 'card';
+@import 'login';
+@import 'packages';
+@import 'tachyons';
+
+main {
+    min-height: calc(100vh - 123px);
+}
+
+.show-admin-bar {
+    main {
+        min-height: calc(100vh - 163px);
+    }
+}
+
+body[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+    .mr1 {
+        margin-right: 0;
+        margin-left: 0.25rem;
+    }
+
+    .mr2 {
+        margin-right: 0;
+        margin-left: 0.5rem;
+    }
+
+    .fr {
+        float: left;
+    }
+
+    .text-start {
+        text-align: right !important;
+    }
+
+    .float-start {
+        float: right !important;
+    }
+
+    select:not([multiple]) {
+        background-position: 7px 50%;
+    }
+
+    .ml1 {
+        margin-left: 0;
+        margin-right: 0.25rem;
+    }
+
+    .btn-group > .btn:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-group:not(:last-child) > .btn {
+        border-top-right-radius: 0.25rem;
+        border-bottom-right-radius: 0.25rem;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .btn-group > .btn:not(:first-child), .btn-group > .btn-group:not(:first-child) > .btn {
+        border-top-left-radius: 0.25rem;
+        border-bottom-left-radius: 0.25rem;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .ui-select-wrapper .svg-next-icon, .ui-select-wrapper .next-icon-text {
+        right: auto;
+        left: 7px;
+    }
+
+    .table-wrapper .table-configuration-wrap .configuration-close-btn {
+        right: auto;
+        left: 15px;
+    }
+
+    .hrv-checkbox, input[type=checkbox] {
+        margin: 0 0 0 0.5rem;
+    }
+
+    .form-group .onoffswitch {
+        float: right;
+        margin-right: 0;
+        margin-left: 10px;
+    }
+
+    .ml-auto {
+        margin-right: auto;
+        margin-left: 0;
+    }
+
+    .avatar-preview {
+        margin-right: 0;
+        margin-left: 15px;
+    }
+}

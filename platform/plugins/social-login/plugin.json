@@ -1,0 +1,9 @@
+{
+    "name": "Social Login",
+    "namespace": "Botble\\SocialLogin\\",
+    "provider": "Botble\\SocialLogin\\Providers\\SocialLoginServiceProvider",
+    "author": "Botble Technologies",
+    "url": "https://botble.com",
+    "version": "5.8",
+    "description": "Easier and faster login with Facebook, LinkedIn, Github or Google."
+}

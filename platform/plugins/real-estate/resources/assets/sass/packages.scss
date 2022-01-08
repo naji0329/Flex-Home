@@ -1,0 +1,126 @@
+.packages-listing {
+    $primary-color: #3ca2bb;
+    $main-font-color: #808080;
+    $main-font-weight: 300;
+
+    margin-top: 20px;
+
+    .flex-items-xs-center {
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+
+    .flex-items-xs-middle {
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .text-xs-center {
+        text-align: center !important;
+    }
+
+    // Tables
+    .card {
+        border: 0;
+        border-radius: 0;
+        -webkit-box-shadow: 0 3px 0 0 rgba(0, 0, 0, .08);
+        box-shadow: 0 3px 0 0 rgba(0, 0, 0, .08);
+        transition: all .3s ease-in-out;
+        padding: 2.25rem 0;
+        position: relative;
+        will-change: transform;
+        background: #f8f8f8;
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 5px;
+            background-color: $primary-color;
+            transition: 0.5s;
+        }
+
+        &:hover {
+            transform: scale(1.05);
+            -webkit-box-shadow: 0 20px 35px 0 rgba(0, 0, 0, .08);
+            box-shadow: 0 20px 35px 0 rgba(0, 0, 0, .08);
+
+            &:after {
+                width: 100%;
+            }
+
+        }
+
+        & .card-header {
+            padding-left: 1rem;
+            border-bottom: 0;
+            background: #f8f8f8;
+        }
+
+        & .card-title {
+            margin-bottom: 1rem;
+            background: #f8f8f8;
+        }
+
+        & .card-block {
+            padding-top: 0;
+            background: #f8f8f8;
+        }
+
+        & .list-group-item {
+            border: 0;
+            padding: .25rem;
+            color: $main-font-color;
+            font-weight: $main-font-weight;
+            background: #f8f8f8;
+        }
+    }
+
+    // Price
+    .display-2 {
+        font-size: 3rem;
+
+        & .currency {
+            font-size: 1.75rem;
+            position: relative;
+            font-weight: $main-font-weight + 100;
+            top: -45px;
+            letter-spacing: 0;
+        }
+
+        & .period {
+            font-size: 1rem;
+            color: lighten($main-font-color, 20%);
+            letter-spacing: 0;
+        }
+    }
+
+    // Buttons
+    .btn {
+        text-transform: uppercase;
+        font-size: .75rem;
+        font-weight: $main-font-weight + 200;
+        color: #fff;
+        border-radius: 0;
+        padding: .75rem 1.25rem;
+        letter-spacing: 1px;
+    }
+}
+
+.main-dashboard-form {
+    .current-package {
+        margin-top: 20px;
+        p {
+            margin-bottom: 10px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

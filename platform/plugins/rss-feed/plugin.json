@@ -1,0 +1,9 @@
+{
+    "name": "Rss Feed",
+    "namespace": "Botble\\RssFeed\\",
+    "provider": "Botble\\RssFeed\\Providers\\RssFeedServiceProvider",
+    "author": "Botble Technologies",
+    "url": "https://botble.com",
+    "version": "1.1",
+    "description": "Rss Feed"
+}

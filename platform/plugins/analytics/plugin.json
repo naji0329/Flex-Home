@@ -1,0 +1,9 @@
+{
+    "name": "Analytics",
+    "namespace": "Botble\\Analytics\\",
+    "provider": "Botble\\Analytics\\Providers\\AnalyticsServiceProvider",
+    "author": "Botble Technologies",
+    "url": "https://botble.com",
+    "version": "5.8",
+    "description": "Tracking data from Google Analytics"
+}

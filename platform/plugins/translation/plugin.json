@@ -1,0 +1,9 @@
+{
+    "name": "Translation",
+    "namespace": "Botble\\Translation\\",
+    "provider": "Botble\\Translation\\Providers\\TranslationServiceProvider",
+    "author": "Botble Technologies",
+    "url": "https://botble.com",
+    "version": "5.8",
+    "description": "Manage translation text"
+}

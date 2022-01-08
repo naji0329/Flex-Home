@@ -1,0 +1,10 @@
+{
+    "name": "SslCommerz Payment Gateway",
+    "namespace": "Botble\\SslCommerz\\",
+    "provider": "Botble\\SslCommerz\\Providers\\SslCommerzServiceProvider",
+    "author": "Botble Technologies",
+    "url": "https://botble.com",
+    "version": "1.0",
+    "description": "SslCommerz payment gateway integration",
+    "require": []
+}

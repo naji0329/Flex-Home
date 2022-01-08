@@ -1,0 +1,9 @@
+{
+    "name": "Audit Log",
+    "namespace": "Botble\\AuditLog\\",
+    "provider": "Botble\\AuditLog\\Providers\\AuditLogServiceProvider",
+    "author": "Botble Technologies",
+    "url": "https://botble.com",
+    "version": "5.8",
+    "description": "Record activities logs"
+}

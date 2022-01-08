@@ -1,0 +1,9 @@
+{
+    "name": "Backup",
+    "namespace": "Botble\\Backup\\",
+    "provider": "Botble\\Backup\\Providers\\BackupServiceProvider",
+    "author": "Botble Technologies",
+    "url": "https://botble.com",
+    "version": "5.8",
+    "description": "Backup & restore database, uploads folder"
+}

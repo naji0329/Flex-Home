@@ -1,0 +1,23 @@
+{
+    "name": "botble/api",
+    "description": "API package",
+    "type": "package",
+    "autoload": {
+        "psr-4": {
+            "Botble\\Api\\": "src"
+        }
+    },
+    "require": {
+        "botble/platform": "*@dev",
+        "laravel/passport": "^9.0|^10.0",
+        "knuckleswtf/scribe": "^2.0",
+        "fruitcake/laravel-cors": "^2.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Botble\\Api\\Providers\\ApiServiceProvider"
+            ]
+        }
+    }
+}

@@ -1,0 +1,276 @@
+.main-header .main-menu-content {
+    .sub-toggle {
+        position: relative;
+        display: inline-block;
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+        transform-style: preserve-3d;
+    }
+
+    .sub-toggle:before, .sub-toggle:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 12px;
+        height: 1px;
+        background-color: #000;
+    }
+
+    .sub-toggle:before {
+        transform: translateX(-50%);
+    }
+
+    .sub-toggle:after {
+        transform: translateX(-50%) rotate(90deg);
+    }
+
+    .sub-toggle.active:after {
+        display: none;
+    }
+
+    .sub-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 200px;
+        z-index: 1000;
+        transition: all 0.25s ease;
+        border: 1px solid #eee;
+        background-color: rgba(255, 255, 255, 0.95);
+        visibility: hidden;
+        opacity: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .sub-menu:before {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 0;
+        width: 0;
+        border-bottom: 6px solid #fff;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        display: none;
+    }
+
+    .sub-menu > li {
+        display: block;
+
+        .sub-toggle-desktop {
+            display: none;
+        }
+    }
+
+    .sub-menu > li > a {
+        display: inline-block;
+        padding: 10px 20px;
+        width: 100%;
+        font-size: 15px;
+        color: #000;
+        text-transform: capitalize;
+        transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        text-decoration: none !important;
+    }
+
+    .sub-menu > li > a:hover {
+        color: var(--primary-color);
+    }
+
+    .sub-menu > li:last-child a {
+        border-bottom: 1px solid #eee;
+    }
+
+    .sub-menu > li.menu-item-has-children {
+        position: relative;
+    }
+
+    .sub-menu > li.menu-item-has-children > .sub-toggle {
+        display: none;
+    }
+
+    .sub-menu > li.menu-item-has-children > .sub-menu {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .sub-menu > li.menu-item-has-children > .sub-menu:before {
+        display: none;
+    }
+
+    .sub-menu > li.menu-item-has-children:hover > .sub-menu {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .sub-menu > li:last-child {
+        border-bottom: none;
+    }
+
+    .menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .menu > li {
+        display: inline-block;
+        padding: 0.8rem 0;
+    }
+
+    .menu > li > a {
+        position: relative;
+        padding: .5rem;
+        color: #000;
+        text-decoration: none !important;
+        display: inline-block;
+    }
+
+    .menu > li > a:hover {
+        color: var(--primary-color);
+    }
+
+    .menu > li:first-child {
+        padding-left: 0;
+    }
+
+    .menu > li:last-child {
+        margin-right: 0;
+        padding-right: 0;
+    }
+
+    .menu > li .sub-toggle {
+        display: none;
+    }
+
+    .menu > li.menu-item-has-children {
+        position: relative;
+        padding: 0.8rem 0.5rem;
+    }
+
+    .menu > li.menu-item-has-children .sub-toggle {
+        margin-left: 5px;
+        display: none;
+    }
+
+    .menu > li.menu-item-has-children .sub-menu {
+        visibility: hidden;
+        opacity: 0;
+        transform: scale3d(1, 1, 0) translateY(30px);
+    }
+
+    .menu > li.menu-item-has-children:hover .sub-toggle {
+        color: #ffffff;
+    }
+
+    .menu > li.menu-item-has-children:hover > .sub-menu {
+        visibility: visible;
+        opacity: 1;
+        transform: scale3d(1, 1, 1) translateY(0);
+    }
+
+    .menu > li.current-menu-item > a {
+        color: var(--primary-color) !important;
+        font-weight: 600!important;
+    }
+
+    .menu > li.current-menu-item .sub-toggle {
+        color: #ffffff !important;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .main-header .main-menu-content {
+        .sub-toggle-desktop {
+            display: none;
+        }
+
+        .menu--mobile {
+            width: 100%;
+        }
+
+        .menu--mobile .sub-menu {
+            position: relative;
+            display: none;
+            transform: translate(0, 0);
+            visibility: visible;
+            opacity: 1;
+            transition: all 0s ease;
+            border: none;
+        }
+
+        .menu--mobile .sub-menu > li > a {
+            border: none;
+            padding: 10px 20px;
+        }
+
+        .menu--mobile .sub-toggle:before, .menu--mobile .sub-toggle:after {
+            background-color: #000;
+        }
+
+        .menu--mobile > li {
+            padding: 0 !important;
+            border-bottom: 1px dashed #eaeaea;
+
+            &.current-menu-item {
+                border-left: 2px solid var(--primary-color);
+            }
+        }
+
+        .menu--mobile > li > a {
+            position: relative;
+            z-index: 10;
+            display: block;
+            padding: 10px 20px 10px 0;
+            line-height: 20px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #000;
+            text-transform: capitalize;
+        }
+
+        .menu--mobile > li > a:hover {
+            padding-left: 5px;
+            color: var(--primary-color);
+        }
+
+        .menu--mobile > li.menu-item-has-children:not(.has-mega-menu) {
+            position: relative;
+        }
+
+        .menu--mobile > li.menu-item-has-children:not(.has-mega-menu) .sub-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            z-index: 20;
+            display: inline-block;
+        }
+
+        .menu--mobile .sub-menu > li.menu-item-has-children > .sub-menu {
+            position: static;
+            padding-left: 20px;
+        }
+    }
+}
+
+.main-header {
+    .navbar {
+        padding: 0;
+    }
+
+    .navbar-light .navbar-brand {
+        padding: 0.8rem 0;
+    }
+}

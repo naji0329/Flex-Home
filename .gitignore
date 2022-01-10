@@ -44,3 +44,7 @@ resources/docs
 /log
 
 storage/framework/laravel-excel/
+platform/core
+platform/plugins/contact
+platform/plugins/language
+platform/plugins/themes

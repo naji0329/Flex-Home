@@ -1,8 +1,0 @@
-{
-    "name": "botble/comment",
-    "description": "Comment plugin",
-    "type": "package",
-    "require": {
-        "laravel/passport": "^10.0"
-    }
-}

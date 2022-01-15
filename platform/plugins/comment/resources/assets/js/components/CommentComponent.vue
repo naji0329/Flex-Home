@@ -1,16 +1,14 @@
 <template>
     <div class="bb-comment">
         <comment-header :recommend="recommend" :has-rating="hasRating" />
-        <comment-box :on-success="onPostCommentSuccess" :has-rating="hasRating" />
+        <comment-box :has-rating="hasRating" />
         <div class="bb-loading" v-if="isLoading"></div>
         <div class="bb-comment-list" v-if="!isLoading">
             <comment-item v-for="(comment, index) in comments" :key="comment.id" :comment="comment" :on-delete-item="() => onDeletedItem(index)" />
-
             <div class="bb-comment-list-empty text-center" v-if="!comments.length">
                 <p>{{ __('Become the first to comment') }}</p>
             </div>
         </div>
-
         <confirm-dialog v-if="confirmDialogData"
                         :title="confirmDialogData.title"
                         :message="confirmDialogData.message"
@@ -41,7 +39,7 @@ import CommentFooter from "./partials/CommentFooter";
 import LoginForm from "./partials/LoginForm";
 import Http from '../service/http';
 import Ls from '../service/Ls';
-
+window.Pusher = require('pusher-js');
 window.http = Http;
 
 export default {
@@ -202,6 +200,16 @@ export default {
                 this.recommend = data.data.recommend;
             })
         },
+        listen() {
+            var self = this;
+            window.Echo.channel('post')
+            .listen('.Botble\\Comment\\Events\\NewCommentEvent', (e) => {
+                self.reactive.attrs.count_all += 1;
+                if(e.comment.parent_id == "0") {
+                    self.comments.unshift(e.comment);
+                }
+            });
+        },
         loadMoreComments() {
             if (this.url && this.reactive.attrs) {
                 this.isLoadMore = true;
@@ -217,27 +225,6 @@ export default {
                 })
             }
         },
-        onPostCommentSuccess(comment, isSending = false, fillIndex = null) {
-            if (fillIndex === null) {
-                comment.replies = [];
-                comment.user = this.reactive.userData;
-                comment.like_count = 0;
-                comment.isSending = isSending;
-
-                return this.comments.unshift(comment);
-            } else {
-                if (fillIndex !== -1) {
-                    comment.isSending = false;
-
-                    this.reactive.rating = comment.rated;
-
-                    this.comments[0] = Object.assign(this.comments[0], comment);
-                } else {
-                    // failed
-                    this.comments.splice(0, 1);
-                }
-            }
-        },
         showConfirmDialog(title, message, onDone) {
             this.confirmDialogData = {
                 title,
@@ -249,9 +236,7 @@ export default {
             this.comments.splice(index, 1)
         },
         updateCount(adding = true) {
-            if (adding) {
-                this.reactive.attrs.count_all += 1;
-            } else {
+            if (!adding) {
                 this.reactive.attrs.count_all -= 1;
             }
         },
@@ -293,6 +278,8 @@ export default {
         }
     },
     mounted: function () {
+
+        this.listen();
         this.loadComments();
     },
     provide() {

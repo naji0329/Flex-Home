@@ -1,1 +1,122 @@
-.language_bar_chooser{display:block;float:right;line-height:58px;text-align:center;width:160px}.language_bar_chooser li{display:inline-block;float:left;margin-left:5px}.language_bar_chooser.dropdown-menu{border-radius:0!important;display:none}.language_bar_chooser.dropdown-menu li{display:block;margin:0;width:100%}.language_bar_chooser.dropdown-menu li:hover{background:#ddd}.language_bar_chooser.dropdown-menu li a{display:block!important;margin-right:0!important;text-align:left;width:100%}.dropdown.open .language_bar_chooser.dropdown-menu{display:block}.language-wrapper .btn{background:0 0;border:none;border-radius:0!important;box-shadow:none;color:#333;height:25px;line-height:1.3em;margin-bottom:0;outline:0!important;padding:7px 15px;transition:all .4 ease}.language-wrapper .btn img{float:left;margin-right:10px;margin-top:4px}.language_bar_list li{display:block;float:left;margin-left:5px;min-width:95px}.language_bar_list li a{display:block;text-align:left;width:100%}.language_bar_list li a img{float:left;margin-right:10px;margin-top:10px;width:20px}.language_bar_list li a span{color:#222}.language-wrapper button .caret{border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px dashed;display:inline-block;height:0;margin-left:2px;vertical-align:middle;width:0}.language-wrapper .dropdown-menu{-webkit-background-clip:padding-box;background-clip:padding-box;background-color:#fff;border:1px solid rgba(0,0,0,.15);border-radius:4px;box-shadow:0 6px 12px rgba(0,0,0,.175);display:none;float:left;font-size:14px;line-height:58px;list-style:none;margin:0;min-width:160px;padding:0;position:absolute;right:0;text-align:left;top:100%;width:160px;z-index:1000}.language-wrapper .dropdown-menu li img{float:left;margin:16px 5px 10px}.language-wrapper .dropdown-menu li span{color:#222}.language-wrapper .dropdown-menu li.active a span{color:#fff}body[dir=rtl] .language-wrapper .language_bar_list li a img{margin-left:10px;margin-right:0}
+.language_bar_chooser {
+  display: block;
+  float: right;
+  width: 160px;
+  line-height: 58px;
+  text-align: center;
+}
+.language_bar_chooser li {
+  display: inline-block;
+  float: left;
+  margin-left: 5px;
+}
+.language_bar_chooser.dropdown-menu {
+  display: none;
+  border-radius: 0 !important;
+}
+.language_bar_chooser.dropdown-menu li {
+  width: 100%;
+  margin: 0;
+  display: block;
+}
+.language_bar_chooser.dropdown-menu li:hover {
+  background: #dddddd;
+}
+.language_bar_chooser.dropdown-menu li a {
+  display: block !important;
+  margin-right: 0 !important;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown.open .language_bar_chooser.dropdown-menu {
+  display: block;
+}
+
+.language-wrapper .btn {
+  border: none;
+  background: none;
+  margin-bottom: 0;
+  height: 25px;
+  border-radius: 0 !important;
+  padding: 7px 15px;
+  line-height: 1.3em;
+  outline: none !important;
+  box-shadow: none;
+  transition: all 0.4 ease;
+  color: #333333;
+}
+.language-wrapper .btn img {
+  float: left;
+  margin-right: 10px;
+  margin-top: 4px;
+}
+
+.language_bar_list li {
+  display: block;
+  margin-left: 5px;
+  float: left;
+  min-width: 95px;
+}
+.language_bar_list li a {
+  text-align: left;
+  display: block;
+  width: 100%;
+}
+.language_bar_list li a img {
+  float: left;
+  margin-right: 10px;
+  margin-top: 10px;
+  width: 20px;
+}
+.language_bar_list li a span {
+  color: #222222;
+}
+
+.language-wrapper button .caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+.language-wrapper .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #ffffff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  width: 160px;
+  line-height: 58px;
+  margin: 0;
+  padding: 0;
+}
+.language-wrapper .dropdown-menu li img {
+  float: left;
+  margin: 16px 5px 10px;
+}
+.language-wrapper .dropdown-menu li span {
+  color: #222222;
+}
+.language-wrapper .dropdown-menu li.active a span {
+  color: #fff;
+}
+
+body[dir=rtl] .language-wrapper .language_bar_list li a img {
+  margin-right: 0;
+  margin-left: 10px;
+}

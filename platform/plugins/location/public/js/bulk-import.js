@@ -1,1 +1,154 @@
-$((function(){var e=$(".alert.alert-warning");e.length>0&&_.map(e,(function(e){var t=localStorage.getItem("storage-alerts");if(t=t?JSON.parse(t):{},$(e).data("alert-id")){if(t[$(e).data("alert-id")])return void $(e).alert("close");$(e).removeClass("hidden")}})),e.on("closed.bs.alert",(function(e){var t=$(e.target).data("alert-id");if(t){var a=localStorage.getItem("storage-alerts");(a=a?JSON.parse(a):{})[t]=!0,localStorage.setItem("storage-alerts",JSON.stringify(a))}}));var t=!1;$(document).on("click",".download-template",(function(e){if(e.preventDefault(),!t){var a=$(e.currentTarget),r=a.data("extension"),o=a.html();$.ajax({url:a.data("url"),method:"POST",data:{extension:r},xhrFields:{responseType:"blob"},beforeSend:function(){a.html(a.data("downloading")),a.addClass("text-secondary"),t=!0},success:function(e){var t=document.createElement("a"),r=window.URL.createObjectURL(e);t.href=r,t.download=a.data("filename"),document.body.append(t),t.click(),t.remove(),window.URL.revokeObjectURL(r)},error:function(e){Botble.handleError(e)},complete:function(){setTimeout((function(){a.html(o),a.removeClass("text-secondary"),t=!1}),2e3)}})}})),$(document).on("submit",".form-import-data",(function(e){e.preventDefault();var t=$(this),a=new FormData(t.get(0)),r=t.find("button[type=submit]");r.prop("disabled",!0).addClass("button-loading");var o=$("#imported-message"),n=$("#imported-listing"),s=$(".show-errors"),l=$("#failure-template").html();$.ajax({url:t.attr("action"),type:t.attr("method")||"POST",data:a,cache:!1,processData:!1,contentType:!1,dataType:"json",beforeSend:function(){$(".main-form-message").addClass("hidden"),o.html(""),n.html("")},success:function(e){e.error?Botble.showError(e.message):Botble.showSuccess(e.message);var t="";e.data.failures&&_.map(e.data.failures,(function(e){t+=l.replace("__row__",e.row).replace("__attribute__",e.attribute).replace("__errors__",e.errors.join(", "))}));var a="alert alert-success";e.data.total_failed?(a=e.data.total_success?"alert alert-warning":"alert alert-danger",s.removeClass("hidden")):s.addClass("hidden"),o.removeClass().addClass(a).html(e.message),t&&n.removeClass("hidden").html(t),document.getElementById("input-group-file").value=""},error:function(e){Botble.handleError(e)},complete:function(){r.prop("disabled",!1),r.removeClass("button-loading"),$(".main-form-message").removeClass("hidden")}})}))}));
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!**********************************************************************!*\
+  !*** ./platform/plugins/location/resources/assets/js/bulk-import.js ***!
+  \**********************************************************************/
+$(function () {
+  var alertWarning = $('.alert.alert-warning');
+
+  if (alertWarning.length > 0) {
+    _.map(alertWarning, function (el) {
+      var storageAlert = localStorage.getItem('storage-alerts');
+      storageAlert = storageAlert ? JSON.parse(storageAlert) : {};
+
+      if ($(el).data('alert-id')) {
+        if (storageAlert[$(el).data('alert-id')]) {
+          $(el).alert('close');
+          return;
+        }
+
+        $(el).removeClass('hidden');
+      }
+    });
+  }
+
+  alertWarning.on('closed.bs.alert', function (el) {
+    var storage = $(el.target).data('alert-id');
+
+    if (storage) {
+      var storageAlert = localStorage.getItem('storage-alerts');
+      storageAlert = storageAlert ? JSON.parse(storageAlert) : {};
+      storageAlert[storage] = true;
+      localStorage.setItem('storage-alerts', JSON.stringify(storageAlert));
+    }
+  });
+  var isDownloadingTemplate = false;
+  $(document).on('click', '.download-template', function (event) {
+    event.preventDefault();
+
+    if (isDownloadingTemplate) {
+      return;
+    }
+
+    var $this = $(event.currentTarget);
+    var extension = $this.data('extension');
+    var $content = $this.html();
+    $.ajax({
+      url: $this.data('url'),
+      method: 'POST',
+      data: {
+        extension: extension
+      },
+      xhrFields: {
+        responseType: 'blob'
+      },
+      beforeSend: function beforeSend() {
+        $this.html($this.data('downloading'));
+        $this.addClass('text-secondary');
+        isDownloadingTemplate = true;
+      },
+      success: function success(data) {
+        var a = document.createElement('a');
+        var url = window.URL.createObjectURL(data);
+        a.href = url;
+        a.download = $this.data('filename');
+        document.body.append(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      },
+      error: function error(data) {
+        Botble.handleError(data);
+      },
+      complete: function complete() {
+        setTimeout(function () {
+          $this.html($content);
+          $this.removeClass('text-secondary');
+          isDownloadingTemplate = false;
+        }, 2000);
+      }
+    });
+  });
+  $(document).on('submit', '.form-import-data', function (event) {
+    event.preventDefault();
+    var $form = $(this);
+    var formData = new FormData($form.get(0));
+    var $button = $form.find('button[type=submit]');
+    $button.prop('disabled', true).addClass('button-loading');
+    var $message = $('#imported-message');
+    var $listing = $('#imported-listing');
+    var $show = $('.show-errors');
+    var failureTemplate = $('#failure-template').html();
+    $.ajax({
+      url: $form.attr('action'),
+      type: $form.attr('method') || 'POST',
+      data: formData,
+      cache: false,
+      processData: false,
+      contentType: false,
+      dataType: 'json',
+      beforeSend: function beforeSend() {
+        $('.main-form-message').addClass('hidden');
+        $message.html('');
+        $listing.html('');
+      },
+      success: function success(data) {
+        if (data.error) {
+          Botble.showError(data.message);
+        } else {
+          Botble.showSuccess(data.message);
+        }
+
+        var result = '';
+
+        if (data.data.failures) {
+          _.map(data.data.failures, function (val) {
+            result += failureTemplate.replace('__row__', val.row).replace('__attribute__', val.attribute).replace('__errors__', val.errors.join(', '));
+          });
+        }
+
+        var $class = 'alert alert-success';
+
+        if (data.data.total_failed) {
+          if (data.data.total_success) {
+            $class = 'alert alert-warning';
+          } else {
+            $class = 'alert alert-danger';
+          }
+
+          $show.removeClass('hidden');
+        } else {
+          $show.addClass('hidden');
+        }
+
+        $message.removeClass().addClass($class).html(data.message);
+
+        if (result) {
+          $listing.removeClass('hidden').html(result);
+        }
+
+        document.getElementById('input-group-file').value = '';
+      },
+      error: function error(data) {
+        Botble.handleError(data);
+      },
+      complete: function complete() {
+        $button.prop('disabled', false);
+        $button.removeClass('button-loading');
+        $('.main-form-message').removeClass('hidden');
+      }
+    });
+  });
+});
+/******/ })()
+;

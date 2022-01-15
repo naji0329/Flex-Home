@@ -1,1 +1,34 @@
-$((function(){$(document).on("click",".get-refund-detail",(function(e){e.preventDefault();var n=$(e.currentTarget);$.ajax({type:"GET",cache:!1,url:n.data("url"),beforeSend:function(){n.find("i").addClass("fa-spin")},success:function(e){e.error?Botble.showError(e.message):$(n.data("element")).html(e.data)},error:function(e){Botble.handleError(e)},complete:function(){n.find("i").removeClass("fa-spin")}})}))}));
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!************************************************************************!*\
+  !*** ./platform/plugins/payment/resources/assets/js/payment-detail.js ***!
+  \************************************************************************/
+$(function () {
+  $(document).on("click", ".get-refund-detail", function (e) {
+    e.preventDefault();
+    var $this = $(e.currentTarget);
+    $.ajax({
+      type: "GET",
+      cache: false,
+      url: $this.data('url'),
+      beforeSend: function beforeSend() {
+        $this.find('i').addClass('fa-spin');
+      },
+      success: function success(res) {
+        if (!res.error) {
+          $($this.data('element')).html(res.data);
+        } else {
+          Botble.showError(res.message);
+        }
+      },
+      error: function error(res) {
+        Botble.handleError(res);
+      },
+      complete: function complete() {
+        $this.find('i').removeClass('fa-spin');
+      }
+    });
+  });
+});
+/******/ })()
+;

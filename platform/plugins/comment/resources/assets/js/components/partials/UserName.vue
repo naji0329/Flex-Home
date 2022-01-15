@@ -26,8 +26,8 @@ export default {
     },
     methods: {
         parseDate() {
-            const date = new Date(this.user.created_at);
-            return `${date.getDate()}/${date.getMonth() > 10 ? date.getMonth() : '0' + date.getMonth()}/${date.getFullYear()}`
+           // var date = new Date(this.user.created_at);
+            return this.user.created_at.substring(0,10);
         }
     },
     props: {

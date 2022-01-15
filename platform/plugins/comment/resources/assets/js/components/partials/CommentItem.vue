@@ -1,5 +1,5 @@
 <template>
-    <div class="bb-comment-item" :class="{'is-sending': comment.isSending}">
+    <div class="bb-comment-item" v-show="data.userData && !deleted" :class="{'is-sending': comment.isSending}">
         <div class="d-flex">
             <avatar :user="comment.user"></avatar>
 
@@ -9,20 +9,10 @@
                     <span class="badge badge-warning" v-if="comment.isAuthor">{{ __('Author') }}</span>
                     <span class="px-1">•</span>
                     <span class="time">{{ !comment.isSending ? comment.time : 'sending...' }}</span>
-                    <span class="px-1" v-if="comment.user.rating && comment.user.rating.rating">•</span>
-                    <div class="d-inline-block" v-if="rated > 0">
-                        <star-rating
-                            :rating="rated"
-                            :read-only="true"
-                            :animate="false"
-                            :star-size="15"
-                        />
-                    </div>
                 </div>
 
                 <div v-show="!showEdit">
                     <p v-html="linkify(comment.comment)"></p>
-
                     <div class="bb-comment-content-actions d-flex flex-wrap align-center">
                         <a class="reply" @click="replyIt" href="javascript:">{{ __('Reply') }}</a>
                         <span>•</span>
@@ -33,7 +23,7 @@
                     </div>
 
                     <div class="mt-3 mb-4" v-if="showReply">
-                        <comment-box :parent-id="comment.id" :on-success="onPostCommentSuccess" auto-focus="true" />
+                        <comment-box :parent-id="comment.id" auto-focus=true />
                     </div>
                 </div>
 
@@ -59,9 +49,6 @@
         </div>
 
         <div class="bb-comment-item-actions" v-if="data.userData && parseInt(comment.user_id) === parseInt(data.userData.id)">
-            <a href="javascript:" @click="showEdit = true">
-                <i class="fas fa-edit"></i>
-            </a>
             <a href="javascript:" class="ml-2" @click="onDelete">
                 <i class="fas fa-trash-alt"></i>
             </a>
@@ -75,7 +62,7 @@ import CommentBox from "./CommentBox";
 import UserName from "./UserName";
 import StarRating from './StarRating';
 import Http from '../../service/http';
-
+import Ls from '../../service/Ls';
 export default {
     name: 'CommentItem',
     data() {
@@ -84,6 +71,8 @@ export default {
             comments: [],
             attrs: {},
             showEdit: false,
+            activePage: false,
+            deleted: false,
         }
     },
     components: {
@@ -104,6 +93,29 @@ export default {
         }
     },
     mounted() {
+        var self = this;
+        window.Echo.channel('post')
+            .listen('.Botble\\Comment\\Events\\NewCommentEvent', (e) => {
+                if(e.comment.parent_id == this.comment.id){
+                    self.comments.unshift(e.comment);
+                }
+            });
+            window.Echo.channel('like')
+            .listen('.Botble\\Comment\\Events\\NewLikeEvent', (e) => {
+                
+                if( self.comment.id == e.commentId && !self.activePage){
+                    self.comment.liked = !self.comment.liked;
+                    self.comment.like_count += e.liked ? 1 : -1;
+                }
+            });
+            window.Echo.channel('delete')
+            .listen('.Botble\\Comment\\Events\\DeleteCommentEvent', (e) => {
+                if(e.id == self.comment.id){
+                    self.deleted = true;
+                    self.attrs.count_all -= 1;
+                }
+            });
+
         const rep = this.comment.rep;
         if (rep && rep.data) {
             this.comments = rep.data.reverse();
@@ -119,7 +131,6 @@ export default {
         rated() {
             const rating = this.data.rating,
                 comment = this.comment;
-
             if (
                 rating &&
                 comment &&
@@ -132,28 +143,9 @@ export default {
         }
     },
     methods: {
+        
         replyIt() {
             this.showReply = true;
-        },
-        onPostCommentSuccess(comment, isSending = false, fillIndex = null) {
-            if (fillIndex === null) {
-                comment.replies = [];
-                comment.user = this.data.userData;
-                comment.like_count = 0;
-                comment.isSending = isSending;
-
-                return this.comments.unshift(comment);
-            } else {
-                if (fillIndex !== -1) {
-                    this.showReply = false;
-                    comment.isSending = false;
-                    this.comments[0] = Object.assign(this.comments[0], comment);
-                } else {
-                    // failed
-                    this.showReply = true;
-                    this.comments.splice(0, 1);
-                }
-            }
         },
         onCancel() {
             this.showEdit = false;
@@ -198,14 +190,13 @@ export default {
             })
         },
         onLike() {
+            this.activePage = true;
             this.comment.liked = !this.comment.liked;
-
             this.comment.like_count += this.comment.liked ? 1 : -1;
-
             Http.post(this.likeUrl, {
                 id: this.comment.id,
             }).then(() => {
-
+               // this.activePage = true;
             });
         }
     },

@@ -13,12 +13,15 @@ use Botble\Comment\Repositories\Interfaces\CommentRatingInterface;
 use Botble\Comment\Repositories\Interfaces\CommentRecommendInterface;
 use Botble\Comment\Repositories\Interfaces\CommentUserInterface;
 use Botble\Comment\Events\NewCommentEvent;
+use Botble\Comment\Events\NewLikeEvent;
+use Botble\Comment\Events\DeleteCommentEvent;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Botble\Comment\Supports\CheckMemberCredentials;
 use RvMedia;
+use Illuminate\Support\Facades\Log;
 
 class CommentFrontController extends BaseController
 {
@@ -81,15 +84,14 @@ class CommentFrontController extends BaseController
             'comment',
             'parent_id',
             'rating',
-        ]));
-
+        ])
+        );
         if (setting('plugin_comment_rating', true) && $comment) {
             $comment->rating = $commentRatingRepo->storageRating($reference, $user, $request->input('rating', 0));
             $comment->rated = $commentRatingRepo->getRatingOfArticle($reference, $user);
         }
-
-        event(new NewCommentEvent($comment, $user));
-
+      
+        broadcast(new NewCommentEvent($comment, $user))->toOthers();
         return $this->response->setData($comment);
     }
 
@@ -155,8 +157,9 @@ class CommentFrontController extends BaseController
                 ->setError()
                 ->setMessage(__('You don\'t have permission with this comment'));
         }
-
+        broadcast(new DeleteCommentEvent($comment));
         $this->commentRepository->delete($comment);
+        
 
         return $this->response
             ->setMessage(__('Delete comment successfully'));
@@ -175,7 +178,7 @@ class CommentFrontController extends BaseController
         $comment = $this->commentRepository->getFirstBy(compact('id'));
 
         $liked = $commentLikeRepo->likeThisComment($comment, $user);
-
+        broadcast(new NewLikeEvent($liked, $comment->id, $comment->like_count));
         return $this->response
             ->setData(compact('liked'))
             ->setMessage($liked ? __('Like successfully') : __('Unlike successfully'));

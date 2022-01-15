@@ -1,1 +1,533 @@
-(()=>{function e(e,t){for(var a=0;a<t.length;a++){var n=t[a];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}!function(t,a){"use strict";var n=function(e,a){var n=e.ajax.params();return n.action=a,n._token=t('meta[name="csrf-token"]').attr("content"),n},o=function(e,a){var n=e+"/export",o=new XMLHttpRequest;o.open("POST",n,!0),o.responseType="arraybuffer",o.onload=function(){if(200===this.status){var e="",t=o.getResponseHeader("Content-Disposition");if(t&&-1!==t.indexOf("attachment")){var a=/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(t);null!=a&&a[1]&&(e=a[1].replace(/['"]/g,""))}var n=o.getResponseHeader("Content-Type"),l=new Blob([this.response],{type:n});if(void 0!==window.navigator.msSaveBlob)window.navigator.msSaveBlob(l,e);else{var r=window.URL||window.webkitURL,s=r.createObjectURL(l);if(e){var c=document.createElement("a");void 0===c.download?window.location=s:(c.href=s,c.download=e,document.body.appendChild(c),c.trigger("click"))}else window.location=s;setTimeout((function(){r.revokeObjectURL(s)}),100)}}},o.setRequestHeader("Content-type","application/x-www-form-urlencoded"),o.send(t.param(a))},l=function(e,a){var n=e.ajax.url()||"",o=e.ajax.params();return o.action=a,n.indexOf("?")>-1?n+"&"+t.param(o):n+"?"+t.param(o)};a.ext.buttons.excel={className:"buttons-excel",text:function(e){return'<i class="far fa-file-excel"></i> '+e.i18n("buttons.excel",BotbleVariables.languages.tables.excel?BotbleVariables.languages.tables.excel:"Excel")},action:function(e,t){window.location=l(t,"excel")}},a.ext.buttons.postExcel={className:"buttons-excel",text:function(e){return'<i class="far fa-file-excel"></i> '+e.i18n("buttons.excel",BotbleVariables.languages.tables.excel?BotbleVariables.languages.tables.excel:"Excel")},action:function(e,t){var a=t.ajax.url()||window.location.href,l=n(t,"excel");o(a,l)}},a.ext.buttons.export={extend:"collection",className:"buttons-export",text:function(e){return'<i class="fa fa-download"></i> '+e.i18n("buttons.export",BotbleVariables.languages.tables.export?BotbleVariables.languages.tables.export:"Export")+'&nbsp;<span class="caret"/>'},buttons:["csv","excel"]},a.ext.buttons.csv={className:"buttons-csv",text:function(e){return'<i class="fas fa-file-csv"></i> '+e.i18n("buttons.csv",BotbleVariables.languages.tables.csv?BotbleVariables.languages.tables.csv:"CSV")},action:function(e,t){window.location=l(t,"csv")}},a.ext.buttons.postCsv={className:"buttons-csv",text:function(e){return'<i class="fas fa-file-csv"></i> '+e.i18n("buttons.csv",BotbleVariables.languages.tables.csv?BotbleVariables.languages.tables.csv:"CSV")},action:function(e,t){var a=t.ajax.url()||window.location.href,l=n(t,"csv");o(a,l)}},a.ext.buttons.pdf={className:"buttons-pdf",text:function(e){return'<i class="far fa-file-pdf"></i> '+e.i18n("buttons.pdf","PDF")},action:function(e,t){window.location=l(t,"pdf")}},a.ext.buttons.postPdf={className:"buttons-pdf",text:function(e){return'<i class="far fa-file-pdf"></i> '+e.i18n("buttons.pdf","PDF")},action:function(e,t){var a=t.ajax.url()||window.location.href,l=n(t,"pdf");o(a,l)}},a.ext.buttons.print={className:"buttons-print",text:function(e){return'<i class="fa fa-print"></i> '+e.i18n("buttons.print",BotbleVariables.languages.tables.print?BotbleVariables.languages.tables.print:"Print")},action:function(e,t){window.location=l(t,"print")}},a.ext.buttons.reset={className:"buttons-reset",text:function(e){return'<i class="fa fa-undo"></i> '+e.i18n("buttons.reset",BotbleVariables.languages.tables.reset?BotbleVariables.languages.tables.reset:"Reset")},action:function(){t(".table thead input").val("").keyup(),t(".table thead select").val("").change()}},a.ext.buttons.reload={className:"buttons-reload",text:function(e){return'<i class="fas fa-sync"></i> '+e.i18n("buttons.reload",BotbleVariables.languages.tables.reload?BotbleVariables.languages.tables.reload:"Reload")},action:function(e,t){t.draw(!1)}},a.ext.buttons.create={className:"buttons-create",text:function(e){return'<i class="fa fa-plus"></i> '+e.i18n("buttons.create","Create")},action:function(){window.location=window.location.href.replace(/\/+$/,"")+"/create"}},void 0!==a.ext.buttons.copyHtml5&&t.extend(a.ext.buttons.copyHtml5,{text:function(e){return'<i class="fa fa-copy"></i> '+e.i18n("buttons.copy","Copy")}}),void 0!==a.ext.buttons.colvis&&t.extend(a.ext.buttons.colvis,{text:function(e){return'<i class="fa fa-eye"></i> '+e.i18n("buttons.colvis","Column visibility")}});var r=function(){function a(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,a),this.init(),this.handleActionsRow(),this.handleActionsExport()}var n,o;return n=a,(o=[{key:"init",value:function(){t(document).on("change",".table-check-all",(function(e){var a=t(e.currentTarget),n=a.attr("data-set"),o=a.prop("checked");t(n).each((function(e,a){o?t(a).prop("checked",!0):t(a).prop("checked",!1)}))})),t(document).find(".table-check-all").closest("th").removeAttr("title"),t(document).on("change",".checkboxes",(function(e){var a=t(e.currentTarget),n=a.closest(".table-wrapper").find(".table").prop("id"),o=[],l=t("#"+n);l.find(".checkboxes:checked").each((function(e,a){o[e]=t(a).val()})),o.length!==l.find(".checkboxes").length?a.closest(".table-wrapper").find(".table-check-all").prop("checked",!1):a.closest(".table-wrapper").find(".table-check-all").prop("checked",!0)})),t(document).on("click",".btn-show-table-options",(function(e){e.preventDefault(),t(e.currentTarget).closest(".table-wrapper").find(".table-configuration-wrap").slideToggle(500)})),t(document).on("click",".action-item",(function(e){e.preventDefault();var a=t(e.currentTarget).find("span[data-href]"),n=a.data("action"),o=a.data("href");n&&"#"!==o&&(window.location.href=o)}))}},{key:"handleActionsRow",value:function(){var e=this;t(document).on("click",".deleteDialog",(function(e){e.preventDefault();var a=t(e.currentTarget);t(".delete-crud-entry").data("section",a.data("section")).data("parent-table",a.closest(".table").prop("id")),t(".modal-confirm-delete").modal("show")})),t(".delete-crud-entry").on("click",(function(e){e.preventDefault();var a=t(e.currentTarget);a.addClass("button-loading");var n=a.data("section");t.ajax({url:n,type:"DELETE",success:function(e){e.error?Botble.showError(e.message):(window.LaravelDataTables[a.data("parent-table")].row(t('a[data-section="'+n+'"]').closest("tr")).remove().draw(),Botble.showSuccess(e.message)),a.closest(".modal").modal("hide"),a.removeClass("button-loading")},error:function(e){Botble.handleError(e),a.removeClass("button-loading")}})})),t(document).on("click",".delete-many-entry-trigger",(function(e){e.preventDefault();var a=t(e.currentTarget),n=a.closest(".table-wrapper").find(".table").prop("id"),o=[];if(t("#"+n).find(".checkboxes:checked").each((function(e,a){o[e]=t(a).val()})),0===o.length)return Botble.showError(BotbleVariables.languages.tables.please_select_record?BotbleVariables.languages.tables.please_select_record:"Please select at least one record to perform this action!"),!1;t(".delete-many-entry-button").data("href",a.prop("href")).data("parent-table",n).data("class-item",a.data("class-item")),t(".delete-many-modal").modal("show")})),t(".delete-many-entry-button").on("click",(function(e){e.preventDefault();var a=t(e.currentTarget);a.addClass("button-loading");var n=t("#"+a.data("parent-table")),o=[];n.find(".checkboxes:checked").each((function(e,a){o[e]=t(a).val()})),t.ajax({url:a.data("href"),type:"DELETE",data:{ids:o,class:a.data("class-item")},success:function(e){e.error?Botble.showError(e.message):Botble.showSuccess(e.message),n.find(".table-check-all").prop("checked",!1),window.LaravelDataTables[a.data("parent-table")].draw(),a.closest(".modal").modal("hide"),a.removeClass("button-loading")},error:function(e){Botble.handleError(e),a.removeClass("button-loading")}})})),t(document).on("click",".bulk-change-item",(function(a){a.preventDefault();var n=t(a.currentTarget),o=n.closest(".table-wrapper").find(".table").prop("id"),l=[];if(t("#"+o).find(".checkboxes:checked").each((function(e,a){l[e]=t(a).val()})),0===l.length)return Botble.showError(BotbleVariables.languages.tables.please_select_record?BotbleVariables.languages.tables.please_select_record:"Please select at least one record to perform this action!"),!1;e.loadBulkChangeData(n),t(".confirm-bulk-change-button").data("parent-table",o).data("class-item",n.data("class-item")).data("key",n.data("key")).data("url",n.data("save-url")),t(".modal-bulk-change-items").modal("show")})),t(document).on("click",".confirm-bulk-change-button",(function(e){e.preventDefault();var a=t(e.currentTarget),n=a.closest(".modal").find(".input-value").val(),o=a.data("key"),l=t("#"+a.data("parent-table")),r=[];l.find(".checkboxes:checked").each((function(e,a){r[e]=t(a).val()})),a.addClass("button-loading"),t.ajax({url:a.data("url"),type:"POST",data:{ids:r,key:o,value:n,class:a.data("class-item")},success:function(e){e.error?Botble.showError(e.message):Botble.showSuccess(e.message),l.find(".table-check-all").prop("checked",!1),t.each(r,(function(e,t){window.LaravelDataTables[a.data("parent-table")].row(l.find('.checkboxes[value="'+t+'"]').closest("tr")).remove().draw()})),a.closest(".modal").modal("hide"),a.removeClass("button-loading")},error:function(e){Botble.handleError(e),a.removeClass("button-loading")}})}))}},{key:"loadBulkChangeData",value:function(e){var a=t(".modal-bulk-change-items");t.ajax({type:"GET",url:a.find(".confirm-bulk-change-button").data("load-url"),data:{class:e.data("class-item"),key:e.data("key")},success:function(e){var n=t.map(e.data,(function(e,t){return{id:t,name:e}}));t(".modal-bulk-change-content").html(e.html);var o=a.find("input[type=text].input-value");o.length&&(o.typeahead({source:n}),o.data("typeahead").source=n),Botble.initResources()},error:function(e){Botble.handleError(e)}})}},{key:"handleActionsExport",value:function(){t(document).on("click",".export-data",(function(e){var a=t(e.currentTarget),n=a.closest(".table-wrapper").find(".table").prop("id"),o=[];t("#"+n).find(".checkboxes:checked").each((function(e,a){o[e]=t(a).val()})),e.preventDefault(),t.ajax({type:"POST",url:a.prop("href"),data:{"ids-checked":o},success:function(e){var t=document.createElement("a");t.href=e.file,t.download=e.name,document.body.appendChild(t),t.trigger("click"),t.remove()},error:function(e){Botble.handleError(e)}})}))}}])&&e(n.prototype,o),a}();t(document).ready((function(){new r}))}(jQuery,jQuery.fn.dataTable)})();
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!**********************************************************!*\
+  !*** ./platform/core/table/resources/assets/js/table.js ***!
+  \**********************************************************/
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+(function ($, DataTable) {
+  'use strict';
+
+  var _buildParams = function _buildParams(dt, action) {
+    var params = dt.ajax.params();
+    params.action = action;
+    params._token = $('meta[name="csrf-token"]').attr('content');
+    return params;
+  };
+
+  var _downloadFromUrl = function _downloadFromUrl(url, params) {
+    var postUrl = url + '/export';
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', postUrl, true);
+    xhr.responseType = 'arraybuffer';
+
+    xhr.onload = function () {
+      if (this.status === 200) {
+        var filename = '';
+        var disposition = xhr.getResponseHeader('Content-Disposition');
+
+        if (disposition && disposition.indexOf('attachment') !== -1) {
+          var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+          var matches = filenameRegex.exec(disposition);
+          if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+        }
+
+        var type = xhr.getResponseHeader('Content-Type');
+        var blob = new Blob([this.response], {
+          type: type
+        });
+
+        if (typeof window.navigator.msSaveBlob !== 'undefined') {
+          // IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for which they were created. These URLs will no longer resolve as the data backing the URL has been freed."
+          window.navigator.msSaveBlob(blob, filename);
+        } else {
+          var URL = window.URL || window.webkitURL;
+          var downloadUrl = URL.createObjectURL(blob);
+
+          if (filename) {
+            // use HTML5 a[download] attribute to specify filename
+            var a = document.createElement('a'); // safari doesn't support this yet
+
+            if (typeof a.download === 'undefined') {
+              window.location = downloadUrl;
+            } else {
+              a.href = downloadUrl;
+              a.download = filename;
+              document.body.appendChild(a);
+              a.trigger('click');
+            }
+          } else {
+            window.location = downloadUrl;
+          }
+
+          setTimeout(function () {
+            URL.revokeObjectURL(downloadUrl);
+          }, 100); // cleanup
+        }
+      }
+    };
+
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send($.param(params));
+  };
+
+  var _buildUrl = function _buildUrl(dt, action) {
+    var url = dt.ajax.url() || '';
+    var params = dt.ajax.params();
+    params.action = action;
+
+    if (url.indexOf('?') > -1) {
+      return url + '&' + $.param(params);
+    }
+
+    return url + '?' + $.param(params);
+  };
+
+  DataTable.ext.buttons.excel = {
+    className: 'buttons-excel',
+    text: function text(dt) {
+      return '<i class="far fa-file-excel"></i> ' + dt.i18n('buttons.excel', BotbleVariables.languages.tables.excel ? BotbleVariables.languages.tables.excel : 'Excel');
+    },
+    action: function action(e, dt) {
+      window.location = _buildUrl(dt, 'excel');
+    }
+  };
+  DataTable.ext.buttons.postExcel = {
+    className: 'buttons-excel',
+    text: function text(dt) {
+      return '<i class="far fa-file-excel"></i> ' + dt.i18n('buttons.excel', BotbleVariables.languages.tables.excel ? BotbleVariables.languages.tables.excel : 'Excel');
+    },
+    action: function action(e, dt) {
+      var url = dt.ajax.url() || window.location.href;
+
+      var params = _buildParams(dt, 'excel');
+
+      _downloadFromUrl(url, params);
+    }
+  };
+  DataTable.ext.buttons["export"] = {
+    extend: 'collection',
+    className: 'buttons-export',
+    text: function text(dt) {
+      return '<i class="fa fa-download"></i> ' + dt.i18n('buttons.export', BotbleVariables.languages.tables["export"] ? BotbleVariables.languages.tables["export"] : 'Export') + '&nbsp;<span class="caret"/>';
+    },
+    buttons: ['csv', 'excel']
+  };
+  DataTable.ext.buttons.csv = {
+    className: 'buttons-csv',
+    text: function text(dt) {
+      return '<i class="fas fa-file-csv"></i> ' + dt.i18n('buttons.csv', BotbleVariables.languages.tables.csv ? BotbleVariables.languages.tables.csv : 'CSV');
+    },
+    action: function action(e, dt) {
+      window.location = _buildUrl(dt, 'csv');
+    }
+  };
+  DataTable.ext.buttons.postCsv = {
+    className: 'buttons-csv',
+    text: function text(dt) {
+      return '<i class="fas fa-file-csv"></i> ' + dt.i18n('buttons.csv', BotbleVariables.languages.tables.csv ? BotbleVariables.languages.tables.csv : 'CSV');
+    },
+    action: function action(e, dt) {
+      var url = dt.ajax.url() || window.location.href;
+
+      var params = _buildParams(dt, 'csv');
+
+      _downloadFromUrl(url, params);
+    }
+  };
+  DataTable.ext.buttons.pdf = {
+    className: 'buttons-pdf',
+    text: function text(dt) {
+      return '<i class="far fa-file-pdf"></i> ' + dt.i18n('buttons.pdf', 'PDF');
+    },
+    action: function action(e, dt) {
+      window.location = _buildUrl(dt, 'pdf');
+    }
+  };
+  DataTable.ext.buttons.postPdf = {
+    className: 'buttons-pdf',
+    text: function text(dt) {
+      return '<i class="far fa-file-pdf"></i> ' + dt.i18n('buttons.pdf', 'PDF');
+    },
+    action: function action(e, dt) {
+      var url = dt.ajax.url() || window.location.href;
+
+      var params = _buildParams(dt, 'pdf');
+
+      _downloadFromUrl(url, params);
+    }
+  };
+  DataTable.ext.buttons.print = {
+    className: 'buttons-print',
+    text: function text(dt) {
+      return '<i class="fa fa-print"></i> ' + dt.i18n('buttons.print', BotbleVariables.languages.tables.print ? BotbleVariables.languages.tables.print : 'Print');
+    },
+    action: function action(e, dt) {
+      window.location = _buildUrl(dt, 'print');
+    }
+  };
+  DataTable.ext.buttons.reset = {
+    className: 'buttons-reset',
+    text: function text(dt) {
+      return '<i class="fa fa-undo"></i> ' + dt.i18n('buttons.reset', BotbleVariables.languages.tables.reset ? BotbleVariables.languages.tables.reset : 'Reset');
+    },
+    action: function action() {
+      $('.table thead input').val('').keyup();
+      $('.table thead select').val('').change();
+    }
+  };
+  DataTable.ext.buttons.reload = {
+    className: 'buttons-reload',
+    text: function text(dt) {
+      return '<i class="fas fa-sync"></i> ' + dt.i18n('buttons.reload', BotbleVariables.languages.tables.reload ? BotbleVariables.languages.tables.reload : 'Reload');
+    },
+    action: function action(e, dt) {
+      dt.draw(false);
+    }
+  };
+  DataTable.ext.buttons.create = {
+    className: 'buttons-create',
+    text: function text(dt) {
+      return '<i class="fa fa-plus"></i> ' + dt.i18n('buttons.create', 'Create');
+    },
+    action: function action() {
+      window.location = window.location.href.replace(/\/+$/, '') + '/create';
+    }
+  };
+
+  if (typeof DataTable.ext.buttons.copyHtml5 !== 'undefined') {
+    $.extend(DataTable.ext.buttons.copyHtml5, {
+      text: function text(dt) {
+        return '<i class="fa fa-copy"></i> ' + dt.i18n('buttons.copy', 'Copy');
+      }
+    });
+  }
+
+  if (typeof DataTable.ext.buttons.colvis !== 'undefined') {
+    $.extend(DataTable.ext.buttons.colvis, {
+      text: function text(dt) {
+        return '<i class="fa fa-eye"></i> ' + dt.i18n('buttons.colvis', 'Column visibility');
+      }
+    });
+  }
+
+  var TableManagement = /*#__PURE__*/function () {
+    function TableManagement() {
+      _classCallCheck(this, TableManagement);
+
+      this.init();
+      this.handleActionsRow();
+      this.handleActionsExport();
+    }
+
+    _createClass(TableManagement, [{
+      key: "init",
+      value: function init() {
+        $(document).on('change', '.table-check-all', function (event) {
+          var _self = $(event.currentTarget);
+
+          var set = _self.attr('data-set');
+
+          var checked = _self.prop('checked');
+
+          $(set).each(function (index, el) {
+            if (checked) {
+              $(el).prop('checked', true);
+            } else {
+              $(el).prop('checked', false);
+            }
+          });
+        });
+        $(document).find('.table-check-all').closest('th').removeAttr('title');
+        $(document).on('change', '.checkboxes', function (event) {
+          var _self = $(event.currentTarget);
+
+          var table = _self.closest('.table-wrapper').find('.table').prop('id');
+
+          var ids = [];
+          var $table = $('#' + table);
+          $table.find('.checkboxes:checked').each(function (i, el) {
+            ids[i] = $(el).val();
+          });
+
+          if (ids.length !== $table.find('.checkboxes').length) {
+            _self.closest('.table-wrapper').find('.table-check-all').prop('checked', false);
+          } else {
+            _self.closest('.table-wrapper').find('.table-check-all').prop('checked', true);
+          }
+        });
+        $(document).on('click', '.btn-show-table-options', function (event) {
+          event.preventDefault();
+          $(event.currentTarget).closest('.table-wrapper').find('.table-configuration-wrap').slideToggle(500);
+        });
+        $(document).on('click', '.action-item', function (event) {
+          event.preventDefault();
+          var span = $(event.currentTarget).find('span[data-href]');
+          var action = span.data('action');
+          var url = span.data('href');
+
+          if (action && url !== '#') {
+            window.location.href = url;
+          }
+        });
+      }
+    }, {
+      key: "handleActionsRow",
+      value: function handleActionsRow() {
+        var that = this;
+        $(document).on('click', '.deleteDialog', function (event) {
+          event.preventDefault();
+
+          var _self = $(event.currentTarget);
+
+          $('.delete-crud-entry').data('section', _self.data('section')).data('parent-table', _self.closest('.table').prop('id'));
+          $('.modal-confirm-delete').modal('show');
+        });
+        $('.delete-crud-entry').on('click', function (event) {
+          event.preventDefault();
+
+          var _self = $(event.currentTarget);
+
+          _self.addClass('button-loading');
+
+          var deleteURL = _self.data('section');
+
+          $.ajax({
+            url: deleteURL,
+            type: 'DELETE',
+            success: function success(data) {
+              if (data.error) {
+                Botble.showError(data.message);
+              } else {
+                window.LaravelDataTables[_self.data('parent-table')].row($('a[data-section="' + deleteURL + '"]').closest('tr')).remove().draw();
+
+                Botble.showSuccess(data.message);
+              }
+
+              _self.closest('.modal').modal('hide');
+
+              _self.removeClass('button-loading');
+            },
+            error: function error(data) {
+              Botble.handleError(data);
+
+              _self.removeClass('button-loading');
+            }
+          });
+        });
+        $(document).on('click', '.delete-many-entry-trigger', function (event) {
+          event.preventDefault();
+
+          var _self = $(event.currentTarget);
+
+          var table = _self.closest('.table-wrapper').find('.table').prop('id');
+
+          var ids = [];
+          $('#' + table).find('.checkboxes:checked').each(function (i, el) {
+            ids[i] = $(el).val();
+          });
+
+          if (ids.length === 0) {
+            Botble.showError(BotbleVariables.languages.tables.please_select_record ? BotbleVariables.languages.tables.please_select_record : 'Please select at least one record to perform this action!');
+            return false;
+          }
+
+          $('.delete-many-entry-button').data('href', _self.prop('href')).data('parent-table', table).data('class-item', _self.data('class-item'));
+          $('.delete-many-modal').modal('show');
+        });
+        $('.delete-many-entry-button').on('click', function (event) {
+          event.preventDefault();
+
+          var _self = $(event.currentTarget);
+
+          _self.addClass('button-loading');
+
+          var $table = $('#' + _self.data('parent-table'));
+          var ids = [];
+          $table.find('.checkboxes:checked').each(function (i, el) {
+            ids[i] = $(el).val();
+          });
+          $.ajax({
+            url: _self.data('href'),
+            type: 'DELETE',
+            data: {
+              ids: ids,
+              "class": _self.data('class-item')
+            },
+            success: function success(data) {
+              if (data.error) {
+                Botble.showError(data.message);
+              } else {
+                Botble.showSuccess(data.message);
+              }
+
+              $table.find('.table-check-all').prop('checked', false);
+
+              window.LaravelDataTables[_self.data('parent-table')].draw();
+
+              _self.closest('.modal').modal('hide');
+
+              _self.removeClass('button-loading');
+            },
+            error: function error(data) {
+              Botble.handleError(data);
+
+              _self.removeClass('button-loading');
+            }
+          });
+        });
+        $(document).on('click', '.bulk-change-item', function (event) {
+          event.preventDefault();
+
+          var _self = $(event.currentTarget);
+
+          var table = _self.closest('.table-wrapper').find('.table').prop('id');
+
+          var ids = [];
+          $('#' + table).find('.checkboxes:checked').each(function (i, el) {
+            ids[i] = $(el).val();
+          });
+
+          if (ids.length === 0) {
+            Botble.showError(BotbleVariables.languages.tables.please_select_record ? BotbleVariables.languages.tables.please_select_record : 'Please select at least one record to perform this action!');
+            return false;
+          }
+
+          that.loadBulkChangeData(_self);
+          $('.confirm-bulk-change-button').data('parent-table', table).data('class-item', _self.data('class-item')).data('key', _self.data('key')).data('url', _self.data('save-url'));
+          $('.modal-bulk-change-items').modal('show');
+        });
+        $(document).on('click', '.confirm-bulk-change-button', function (event) {
+          event.preventDefault();
+
+          var _self = $(event.currentTarget);
+
+          var value = _self.closest('.modal').find('.input-value').val();
+
+          var inputKey = _self.data('key');
+
+          var $table = $('#' + _self.data('parent-table'));
+          var ids = [];
+          $table.find('.checkboxes:checked').each(function (i, el) {
+            ids[i] = $(el).val();
+          });
+
+          _self.addClass('button-loading');
+
+          $.ajax({
+            url: _self.data('url'),
+            type: 'POST',
+            data: {
+              ids: ids,
+              key: inputKey,
+              value: value,
+              "class": _self.data('class-item')
+            },
+            success: function success(data) {
+              if (data.error) {
+                Botble.showError(data.message);
+              } else {
+                Botble.showSuccess(data.message);
+              }
+
+              $table.find('.table-check-all').prop('checked', false);
+              $.each(ids, function (index, item) {
+                window.LaravelDataTables[_self.data('parent-table')].row($table.find('.checkboxes[value="' + item + '"]').closest('tr')).remove().draw();
+              });
+
+              _self.closest('.modal').modal('hide');
+
+              _self.removeClass('button-loading');
+            },
+            error: function error(data) {
+              Botble.handleError(data);
+
+              _self.removeClass('button-loading');
+            }
+          });
+        });
+      }
+    }, {
+      key: "loadBulkChangeData",
+      value: function loadBulkChangeData($element) {
+        var $modal = $('.modal-bulk-change-items');
+        $.ajax({
+          type: 'GET',
+          url: $modal.find('.confirm-bulk-change-button').data('load-url'),
+          data: {
+            'class': $element.data('class-item'),
+            'key': $element.data('key')
+          },
+          success: function success(res) {
+            var data = $.map(res.data, function (value, key) {
+              return {
+                id: key,
+                name: value
+              };
+            });
+            var $parent = $('.modal-bulk-change-content');
+            $parent.html(res.html);
+            var $input = $modal.find('input[type=text].input-value');
+
+            if ($input.length) {
+              $input.typeahead({
+                source: data
+              });
+              $input.data('typeahead').source = data;
+            }
+
+            Botble.initResources();
+          },
+          error: function error(_error) {
+            Botble.handleError(_error);
+          }
+        });
+      }
+    }, {
+      key: "handleActionsExport",
+      value: function handleActionsExport() {
+        $(document).on('click', '.export-data', function (event) {
+          var _self = $(event.currentTarget);
+
+          var table = _self.closest('.table-wrapper').find('.table').prop('id');
+
+          var ids = [];
+          $('#' + table).find('.checkboxes:checked').each(function (i, el) {
+            ids[i] = $(el).val();
+          });
+          event.preventDefault();
+          $.ajax({
+            type: 'POST',
+            url: _self.prop('href'),
+            data: {
+              'ids-checked': ids
+            },
+            success: function success(response) {
+              var a = document.createElement('a');
+              a.href = response.file;
+              a.download = response.name;
+              document.body.appendChild(a);
+              a.trigger('click');
+              a.remove();
+            },
+            error: function error(_error2) {
+              Botble.handleError(_error2);
+            }
+          });
+        });
+      }
+    }]);
+
+    return TableManagement;
+  }();
+
+  $(document).ready(function () {
+    new TableManagement();
+  });
+})(jQuery, jQuery.fn.dataTable);
+/******/ })()
+;

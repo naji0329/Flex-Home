@@ -1,13 +1,5 @@
 <template>
     <div class="bb-comment-header" v-if="data.attrs">
-
-        <div class="bb-comment-header-ratings text-center" v-if="hasRating">
-            <span>{{ data.rating.count }} {{ __('Ratings') }}</span>
-            <div class="d-block text-center">
-                <star-rating :rating="data.rating.rating" :star-size="30" :animate="false" :read-only="true" style="display: inline-block" />
-            </div>
-        </div>
-
         <div class="bb-comment-header-top d-flex justify-content-between">
             <strong>{{ data.attrs.count_all }} {{ __('Comments') }}</strong>
             <dropdown

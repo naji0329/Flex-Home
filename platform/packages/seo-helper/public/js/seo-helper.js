@@ -1,1 +1,97 @@
-(()=>{function e(e,t){for(var n=0;n<t.length;n++){var a=t[n];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}var t=function(){function t(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),this.$document=$(document)}var n,a,i;return n=t,i=[{key:"updateSEOTitle",value:function(e){e?($("#seo_title").val()||$(".page-title-seo").text(e),$(".default-seo-description").addClass("hidden"),$(".existed-seo-meta").removeClass("hidden")):($(".default-seo-description").removeClass("hidden"),$(".existed-seo-meta").addClass("hidden"))}},{key:"updateSEODescription",value:function(e){e&&($("#seo_description").val()||$(".page-description-seo").text(e))}}],(a=[{key:"handleMetaBox",value:function(){var e=this.$document.find("#sample-permalink a");e.length&&$(".page-url-seo p").text(e.prop("href").replace("?preview=true","")),this.$document.on("click",".btn-trigger-show-seo-detail",(function(e){e.preventDefault(),$(".seo-edit-section").toggleClass("hidden")})),this.$document.on("keyup","input[name=name]",(function(e){t.updateSEOTitle($(e.currentTarget).val())})),this.$document.on("keyup","input[name=title]",(function(e){t.updateSEOTitle($(e.currentTarget).val())})),this.$document.on("keyup","textarea[name=description]",(function(e){t.updateSEODescription($(e.currentTarget).val())})),this.$document.on("keyup","#seo_title",(function(e){if($(e.currentTarget).val())$(".page-title-seo").text($(e.currentTarget).val()),$(".default-seo-description").addClass("hidden"),$(".existed-seo-meta").removeClass("hidden");else{var t=$("input[name=name]");t.val()?$(".page-title-seo").text(t.val()):$(".page-title-seo").text($("input[name=title]").val())}})),this.$document.on("keyup","#seo_description",(function(e){$(e.currentTarget).val()?$(".page-description-seo").text($(e.currentTarget).val()):$(".page-description-seo").text($("textarea[name=description]").val())}))}}])&&e(n.prototype,a),i&&e(n,i),t}();$(document).ready((function(){(new t).handleMetaBox()}))})();
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!************************************************************************!*\
+  !*** ./platform/packages/seo-helper/resources/assets/js/seo-helper.js ***!
+  \************************************************************************/
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+var SEOHelperManagement = /*#__PURE__*/function () {
+  function SEOHelperManagement() {
+    _classCallCheck(this, SEOHelperManagement);
+
+    this.$document = $(document);
+  }
+
+  _createClass(SEOHelperManagement, [{
+    key: "handleMetaBox",
+    value: function handleMetaBox() {
+      var permalink = this.$document.find('#sample-permalink a');
+
+      if (permalink.length) {
+        $('.page-url-seo p').text(permalink.prop('href').replace('?preview=true', ''));
+      }
+
+      this.$document.on('click', '.btn-trigger-show-seo-detail', function (event) {
+        event.preventDefault();
+        $('.seo-edit-section').toggleClass('hidden');
+      });
+      this.$document.on('keyup', 'input[name=name]', function (event) {
+        SEOHelperManagement.updateSEOTitle($(event.currentTarget).val());
+      });
+      this.$document.on('keyup', 'input[name=title]', function (event) {
+        SEOHelperManagement.updateSEOTitle($(event.currentTarget).val());
+      });
+      this.$document.on('keyup', 'textarea[name=description]', function (event) {
+        SEOHelperManagement.updateSEODescription($(event.currentTarget).val());
+      });
+      this.$document.on('keyup', '#seo_title', function (event) {
+        if ($(event.currentTarget).val()) {
+          $('.page-title-seo').text($(event.currentTarget).val());
+          $('.default-seo-description').addClass('hidden');
+          $('.existed-seo-meta').removeClass('hidden');
+        } else {
+          var $inputName = $('input[name=name]');
+
+          if ($inputName.val()) {
+            $('.page-title-seo').text($inputName.val());
+          } else {
+            $('.page-title-seo').text($('input[name=title]').val());
+          }
+        }
+      });
+      this.$document.on('keyup', '#seo_description', function (event) {
+        if ($(event.currentTarget).val()) {
+          $('.page-description-seo').text($(event.currentTarget).val());
+        } else {
+          $('.page-description-seo').text($('textarea[name=description]').val());
+        }
+      });
+    }
+  }], [{
+    key: "updateSEOTitle",
+    value: function updateSEOTitle(value) {
+      if (value) {
+        if (!$('#seo_title').val()) {
+          $('.page-title-seo').text(value);
+        }
+
+        $('.default-seo-description').addClass('hidden');
+        $('.existed-seo-meta').removeClass('hidden');
+      } else {
+        $('.default-seo-description').removeClass('hidden');
+        $('.existed-seo-meta').addClass('hidden');
+      }
+    }
+  }, {
+    key: "updateSEODescription",
+    value: function updateSEODescription(value) {
+      if (value) {
+        if (!$('#seo_description').val()) {
+          $('.page-description-seo').text(value);
+        }
+      }
+    }
+  }]);
+
+  return SEOHelperManagement;
+}();
+
+$(document).ready(function () {
+  new SEOHelperManagement().handleMetaBox();
+});
+/******/ })()
+;

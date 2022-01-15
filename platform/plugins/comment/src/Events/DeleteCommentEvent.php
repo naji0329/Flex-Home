@@ -12,7 +12,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewCommentEvent implements ShouldBroadcast
+class DeleteCommentEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -24,7 +24,6 @@ class NewCommentEvent implements ShouldBroadcast
     /**
      * @var CommentUser
      */
-    public $commentUser;
 
     /**
      * Create a new event instance.
@@ -32,12 +31,22 @@ class NewCommentEvent implements ShouldBroadcast
      * @param Comment $comment
      * @param CommentUser $commentUser
      */
-    public function __construct(Comment $comment, CommentUser $commentUser)
+    public function __construct($comment)
     {
         $this->comment = $comment;
-        $this->commentUser = $commentUser;
     }
 
+    public function broadcastWith()
+    {
+        return [
+            'id' => $this->comment->id,
+            'user' => [
+                'name' => $this->comment->user->name,
+                'id' => $this->comment->user->id,
+            ],
+        ];
+    }
+    
     /**
      * Get the channels the event should broadcast on.
      *
@@ -45,6 +54,6 @@ class NewCommentEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('post');
+        return new Channel('delete');
     }
 }

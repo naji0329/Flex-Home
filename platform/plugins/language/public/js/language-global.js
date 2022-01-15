@@ -1,1 +1,101 @@
-(()=>{function e(e,a){for(var t=0;t<a.length;t++){var n=a[t];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}var a=function(){function a(){!function(e,a){if(!(e instanceof a))throw new TypeError("Cannot call a class as a function")}(this,a)}var t,n;return t=a,(n=[{key:"init",value:function(){var e=$("#post_lang_choice");e.data("prev",e.val()),$(document).on("change","#post_lang_choice",(function(e){$(".change_to_language_text").text($(e.currentTarget).find("option:selected").text()),$("#confirm-change-language-modal").modal("show")})),$(document).on("click","#confirm-change-language-modal .btn-warning.float-start",(function(a){a.preventDefault(),(e=$("#post_lang_choice")).val(e.data("prev")).trigger("change"),$("#confirm-change-language-modal").modal("hide")})),$(document).on("click","#confirm-change-language-button",(function(a){a.preventDefault();var t=$(a.currentTarget),n=$("#language_flag_path").val();t.addClass("button-loading"),e=$("#post_lang_choice"),$.ajax({url:$("div[data-change-language-route]").data("change-language-route"),data:{lang_meta_current_language:e.val(),reference_id:$("#reference_id").val(),reference_type:$("#reference_type").val(),lang_meta_created_from:$("#lang_meta_created_from").val()},type:"POST",success:function(a){if($(".active-language").html('<img src="'+n+e.find("option:selected").data("flag")+'.svg" width="16" title="'+e.find("option:selected").text()+'" alt="'+e.find("option:selected").text()+'" />'),!a.error){$(".current_language_text").text(e.find("option:selected").text());var r="";$.each(a.data,(function(e,a){r+='<img src="'+n+a.lang_flag+'.svg" width="16" title="'+a.lang_name+'" alt="'+a.lang_name+'">',a.reference_id?r+='<a href="'+$("#route_edit").val()+'"> '+a.lang_name+' <i class="fa fa-edit"></i> </a><br />':r+='<a href="'+$("#route_create").val()+"?ref_from="+$("#content_id").val()+"&ref_lang="+e+'"> '+a.lang_name+' <i class="fa fa-plus"></i> </a><br />'})),$("#list-others-language").html(r),$("#confirm-change-language-modal").modal("hide"),e.data("prev",e.val()).trigger("change")}t.removeClass("button-loading")},error:function(e){Botble.showError(e.message),t.removeClass("button-loading")}})})),$(document).on("click",".change-data-language-item",(function(e){e.preventDefault(),window.location.href=$(e.currentTarget).find("span[data-href]").data("href")}))}}])&&e(t.prototype,n),a}();$(document).ready((function(){(new a).init(),$.ajaxSetup({data:{ref_from:$('meta[name="ref_from"]').attr("content"),ref_lang:$('meta[name="ref_lang"]').attr("content")}})}))})();
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!**************************************************************************!*\
+  !*** ./platform/plugins/language/resources/assets/js/language-global.js ***!
+  \**************************************************************************/
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+var LanguageGlobalManagement = /*#__PURE__*/function () {
+  function LanguageGlobalManagement() {
+    _classCallCheck(this, LanguageGlobalManagement);
+  }
+
+  _createClass(LanguageGlobalManagement, [{
+    key: "init",
+    value: function init() {
+      var languageChoiceSelect = $('#post_lang_choice');
+      languageChoiceSelect.data('prev', languageChoiceSelect.val());
+      $(document).on('change', '#post_lang_choice', function (event) {
+        $('.change_to_language_text').text($(event.currentTarget).find('option:selected').text());
+        $('#confirm-change-language-modal').modal('show');
+      });
+      $(document).on('click', '#confirm-change-language-modal .btn-warning.float-start', function (event) {
+        event.preventDefault();
+        languageChoiceSelect = $('#post_lang_choice');
+        languageChoiceSelect.val(languageChoiceSelect.data('prev')).trigger('change');
+        $('#confirm-change-language-modal').modal('hide');
+      });
+      $(document).on('click', '#confirm-change-language-button', function (event) {
+        event.preventDefault();
+
+        var _self = $(event.currentTarget);
+
+        var flagPath = $('#language_flag_path').val();
+
+        _self.addClass('button-loading');
+
+        languageChoiceSelect = $('#post_lang_choice');
+        $.ajax({
+          url: $('div[data-change-language-route]').data('change-language-route'),
+          data: {
+            lang_meta_current_language: languageChoiceSelect.val(),
+            reference_id: $('#reference_id').val(),
+            reference_type: $('#reference_type').val(),
+            lang_meta_created_from: $('#lang_meta_created_from').val()
+          },
+          type: 'POST',
+          success: function success(data) {
+            $('.active-language').html('<img src="' + flagPath + languageChoiceSelect.find('option:selected').data('flag') + '.svg" width="16" title="' + languageChoiceSelect.find('option:selected').text() + '" alt="' + languageChoiceSelect.find('option:selected').text() + '" />');
+
+            if (!data.error) {
+              $('.current_language_text').text(languageChoiceSelect.find('option:selected').text());
+              var html = '';
+              $.each(data.data, function (index, el) {
+                html += '<img src="' + flagPath + el.lang_flag + '.svg" width="16" title="' + el.lang_name + '" alt="' + el.lang_name + '">';
+
+                if (el.reference_id) {
+                  html += '<a href="' + $('#route_edit').val() + '"> ' + el.lang_name + ' <i class="fa fa-edit"></i> </a><br />';
+                } else {
+                  html += '<a href="' + $('#route_create').val() + '?ref_from=' + $('#content_id').val() + '&ref_lang=' + index + '"> ' + el.lang_name + ' <i class="fa fa-plus"></i> </a><br />';
+                }
+              });
+              $('#list-others-language').html(html);
+              $('#confirm-change-language-modal').modal('hide');
+              languageChoiceSelect.data('prev', languageChoiceSelect.val()).trigger('change');
+            }
+
+            _self.removeClass('button-loading');
+          },
+          error: function error(data) {
+            Botble.showError(data.message);
+
+            _self.removeClass('button-loading');
+          }
+        });
+      });
+      $(document).on('click', '.change-data-language-item', function (event) {
+        event.preventDefault();
+        window.location.href = $(event.currentTarget).find('span[data-href]').data('href');
+      });
+    }
+  }]);
+
+  return LanguageGlobalManagement;
+}();
+
+;
+$(document).ready(function () {
+  new LanguageGlobalManagement().init();
+  $.ajaxSetup({
+    data: {
+      'ref_from': $('meta[name="ref_from"]').attr('content'),
+      'ref_lang': $('meta[name="ref_lang"]').attr('content')
+    }
+  });
+});
+/******/ })()
+;

@@ -1,1 +1,49 @@
-@charset "UTF-8";.handle-tool-drag{background:#f7f7f7;border-bottom:1px solid #ddd;border-top:1px solid #ddd;cursor:row-resize;height:20px;line-height:14px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.handle-tool-drag:before{color:#999;content:"≡";font-size:20px;left:50%;position:absolute}.handle-tool-drag:hover{background:#f0f0f0}.handle-tool-drag:hover:before{color:#000}.template-setting-on-off .form-group .onoffswitch{display:inline-block;float:none;margin-right:0}#admin_email_wrapper .more-email{position:relative}#admin_email_wrapper .more-email>a{display:none;font-size:12px;position:absolute;right:0}#admin_email_wrapper .more-email+.more-email>a{display:block}#admin_email_wrapper #add.disabled{opacity:.5;pointer-events:none}
+@charset "UTF-8";
+.handle-tool-drag {
+  background: #f7f7f7;
+  height: 20px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: row-resize;
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  line-height: 14px;
+}
+.handle-tool-drag:before {
+  content: "≡";
+  color: #999999;
+  position: absolute;
+  left: 50%;
+  font-size: 20px;
+}
+.handle-tool-drag:hover {
+  background: #f0f0f0;
+}
+.handle-tool-drag:hover:before {
+  color: #000000;
+}
+
+.template-setting-on-off .form-group .onoffswitch {
+  float: none;
+  margin-right: 0;
+  display: inline-block;
+}
+
+#admin_email_wrapper .more-email {
+  position: relative;
+}
+#admin_email_wrapper .more-email > a {
+  position: absolute;
+  right: 0;
+  font-size: 12px;
+  display: none;
+}
+#admin_email_wrapper .more-email + .more-email > a {
+  display: block;
+}
+#admin_email_wrapper #add.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

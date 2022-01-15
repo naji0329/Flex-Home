@@ -1,1 +1,159 @@
-(()=>{"use strict";function e(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}var t=function(){function t(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t)}var n,o;return n=t,(o=[{key:"init",value:function(){$(".toggle-payment-item").off("click").on("click",(function(e){$(e.currentTarget).closest("tbody").find(".payment-content-item").toggleClass("hidden")})),$(".disable-payment-item").off("click").on("click",(function(e){e.preventDefault();var t=$(e.currentTarget);$("#confirm-disable-payment-method-modal").modal("show"),$("#confirm-disable-payment-method-button").on("click",(function(e){e.preventDefault(),$(e.currentTarget).addClass("button-loading"),$.ajax({type:"POST",cache:!1,url:route("payments.methods.update.status"),data:{type:t.closest("form").find(".payment_type").val()},success:function(n){n.error?Botble.showError(n.message):(t.closest("tbody").find(".payment-name-label-group").addClass("hidden"),t.closest("tbody").find(".edit-payment-item-btn-trigger").addClass("hidden"),t.closest("tbody").find(".save-payment-item-btn-trigger").removeClass("hidden"),t.closest("tbody").find(".btn-text-trigger-update").addClass("hidden"),t.closest("tbody").find(".btn-text-trigger-save").removeClass("hidden"),t.addClass("hidden"),$(e.currentTarget).closest(".modal").modal("hide"),Botble.showSuccess(n.message)),$(e.currentTarget).removeClass("button-loading")},error:function(t){Botble.handleError(t),$(e.currentTarget).removeClass("button-loading")}})}))})),$(".save-payment-item").off("click").on("click",(function(e){e.preventDefault();var t=$(e.currentTarget);if(t.addClass("button-loading"),"undefined"!=typeof tinymce)for(var n in tinymce.editors)tinymce.editors[n].getContent&&$("#"+n).html(tinymce.editors[n].getContent());$.ajax({type:"POST",cache:!1,url:t.closest("form").prop("action"),data:t.closest("form").serialize(),success:function(e){e.error?Botble.showError(e.message):(t.closest("tbody").find(".payment-name-label-group").removeClass("hidden"),t.closest("tbody").find(".method-name-label").text(t.closest("form").find("input.input-name").val()),t.closest("tbody").find(".disable-payment-item").removeClass("hidden"),t.closest("tbody").find(".edit-payment-item-btn-trigger").removeClass("hidden"),t.closest("tbody").find(".save-payment-item-btn-trigger").addClass("hidden"),t.closest("tbody").find(".btn-text-trigger-update").removeClass("hidden"),t.closest("tbody").find(".btn-text-trigger-save").addClass("hidden"),Botble.showSuccess(e.message)),t.removeClass("button-loading")},error:function(e){Botble.handleError(e),t.removeClass("button-loading")}})})),$(".button-save-payment-settings").off("click").on("click",(function(e){e.preventDefault();var t=$(e.currentTarget);t.addClass("button-loading"),$.ajax({type:"POST",cache:!1,url:t.closest("form").prop("action"),data:t.closest("form").serialize(),success:function(e){e.error?Botble.showError(e.message):Botble.showSuccess(e.message),t.removeClass("button-loading")},error:function(e){Botble.handleError(e),t.removeClass("button-loading")}})}))}}])&&e(n.prototype,o),t}();$(document).ready((function(){(new t).init()}))})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+var __webpack_exports__ = {};
+/*!*************************************************************************!*\
+  !*** ./platform/plugins/payment/resources/assets/js/payment-methods.js ***!
+  \*************************************************************************/
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+var PaymentMethodManagement = /*#__PURE__*/function () {
+  function PaymentMethodManagement() {
+    _classCallCheck(this, PaymentMethodManagement);
+  }
+
+  _createClass(PaymentMethodManagement, [{
+    key: "init",
+    value: function init() {
+      $('.toggle-payment-item').off('click').on('click', function (event) {
+        $(event.currentTarget).closest('tbody').find('.payment-content-item').toggleClass('hidden');
+      });
+      $('.disable-payment-item').off('click').on('click', function (event) {
+        event.preventDefault();
+
+        var _self = $(event.currentTarget);
+
+        $('#confirm-disable-payment-method-modal').modal('show');
+        $('#confirm-disable-payment-method-button').on('click', function (event) {
+          event.preventDefault();
+          $(event.currentTarget).addClass('button-loading');
+          $.ajax({
+            type: 'POST',
+            cache: false,
+            url: route('payments.methods.update.status'),
+            data: {
+              type: _self.closest('form').find('.payment_type').val()
+            },
+            success: function success(res) {
+              if (!res.error) {
+                _self.closest('tbody').find('.payment-name-label-group').addClass('hidden');
+
+                _self.closest('tbody').find('.edit-payment-item-btn-trigger').addClass('hidden');
+
+                _self.closest('tbody').find('.save-payment-item-btn-trigger').removeClass('hidden');
+
+                _self.closest('tbody').find('.btn-text-trigger-update').addClass('hidden');
+
+                _self.closest('tbody').find('.btn-text-trigger-save').removeClass('hidden');
+
+                _self.addClass('hidden');
+
+                $(event.currentTarget).closest('.modal').modal('hide');
+                Botble.showSuccess(res.message);
+              } else {
+                Botble.showError(res.message);
+              }
+
+              $(event.currentTarget).removeClass('button-loading');
+            },
+            error: function error(res) {
+              Botble.handleError(res);
+              $(event.currentTarget).removeClass('button-loading');
+            }
+          });
+        });
+      });
+      $('.save-payment-item').off('click').on('click', function (event) {
+        event.preventDefault();
+
+        var _self = $(event.currentTarget);
+
+        _self.addClass('button-loading');
+
+        if (typeof tinymce != 'undefined') {
+          for (var instance in tinymce.editors) {
+            if (tinymce.editors[instance].getContent) {
+              $('#' + instance).html(tinymce.editors[instance].getContent());
+            }
+          }
+        }
+
+        $.ajax({
+          type: 'POST',
+          cache: false,
+          url: _self.closest('form').prop('action'),
+          data: _self.closest('form').serialize(),
+          success: function success(res) {
+            if (!res.error) {
+              _self.closest('tbody').find('.payment-name-label-group').removeClass('hidden');
+
+              _self.closest('tbody').find('.method-name-label').text(_self.closest('form').find('input.input-name').val());
+
+              _self.closest('tbody').find('.disable-payment-item').removeClass('hidden');
+
+              _self.closest('tbody').find('.edit-payment-item-btn-trigger').removeClass('hidden');
+
+              _self.closest('tbody').find('.save-payment-item-btn-trigger').addClass('hidden');
+
+              _self.closest('tbody').find('.btn-text-trigger-update').removeClass('hidden');
+
+              _self.closest('tbody').find('.btn-text-trigger-save').addClass('hidden');
+
+              Botble.showSuccess(res.message);
+            } else {
+              Botble.showError(res.message);
+            }
+
+            _self.removeClass('button-loading');
+          },
+          error: function error(res) {
+            Botble.handleError(res);
+
+            _self.removeClass('button-loading');
+          }
+        });
+      });
+      $('.button-save-payment-settings').off('click').on('click', function (event) {
+        event.preventDefault();
+
+        var _self = $(event.currentTarget);
+
+        _self.addClass('button-loading');
+
+        $.ajax({
+          type: 'POST',
+          cache: false,
+          url: _self.closest('form').prop('action'),
+          data: _self.closest('form').serialize(),
+          success: function success(res) {
+            if (!res.error) {
+              Botble.showSuccess(res.message);
+            } else {
+              Botble.showError(res.message);
+            }
+
+            _self.removeClass('button-loading');
+          },
+          error: function error(res) {
+            Botble.handleError(res);
+
+            _self.removeClass('button-loading');
+          }
+        });
+      });
+    }
+  }]);
+
+  return PaymentMethodManagement;
+}();
+
+$(document).ready(function () {
+  new PaymentMethodManagement().init();
+});
+/******/ })()
+;

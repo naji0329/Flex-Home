@@ -2,8 +2,6 @@
     <div class="bb-comment-box d-flex" :class="{'has-rating': hasRating}">
         <avatar v-if="!isEdit" :user="data.userData"></avatar>
         <form class="bb-textarea" @submit="this.postComment">
-            <comment-rating v-if="hasRating" :rating="data.rating ? data.rating.rated : 0" />
-
             <textarea class="form-control" rows="1" name="comment" placeholder="Share your thoughts about that" @change="onChange" :value="value" />
             <div class="bb-textarea-error alert alert-danger m-0" v-if="error">
                 <span>{{ error }}</span>
@@ -14,7 +12,7 @@
                 </div>
 
                 <div class="bb-textarea-footer-right" v-if="!isEdit">
-                    <button type="submit" v-if="data.userData" :class="'post-btn' + (isSending ? ' button-loading' : '')">{{ __('Post as') }} {{ data.userData.name }}</button>
+                    <button type="submit" v-if="data.userData" :class="'post-btn'">{{ __('Post as') }} {{ data.userData.name }}</button>
                     <button type="submit" v-if="!data.userData" class="post-btn post-none">{{ __('Login to Post') }}</button>
                 </div>
 
@@ -33,7 +31,6 @@
 
 <script>
 import Avatar from './Avatar';
-import CommentRating from "./CommentRating";
 import { setResizeListeners } from '../helpers';
 import Http from '../../service/http';
 
@@ -41,7 +38,6 @@ export default {
     name: 'CommentBox',
     components: {
         Avatar,
-        CommentRating,
     },
     data: () => {
         return {
@@ -62,7 +58,6 @@ export default {
                 const formData = $(e.target).serializeData()
                 const index = this.onSuccess(formData, true)
                 this.isSending = true;
-
                 Http.post(this.postUrl, formData)
                     .then(({ data }) => {
                         this.isSending = false;
@@ -77,12 +72,13 @@ export default {
                             this.updateCount();
                         } else {
                             this.onSuccess(null, false, -1);
-                            this.error = data.message[Object.keys(data.message)[0]][0]
+                            this.error = JSON.parse(data.message).comment[0];//data.message[Object.keys(data.message)[0]][0]
                         }
                     }, error => {
                         this.onSuccess(null, false, -1);
                         this.isSending = false;
                         this.error = error.response?.statusText ?? error.message;
+                        console.log(this.error);
                     })
             }
         }

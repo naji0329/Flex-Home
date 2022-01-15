@@ -12,30 +12,31 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewCommentEvent implements ShouldBroadcast
+class NewLikeEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * @var Comment
      */
-    public $comment;
-
+    public $liked;
+    public $commentId;
+    public $likeCount;
     /**
      * @var CommentUser
      */
-    public $commentUser;
 
     /**
      * Create a new event instance.
      *
-     * @param Comment $comment
-     * @param CommentUser $commentUser
+     * @param Comment $commentId
+     * @param CommentUser $likeCount
      */
-    public function __construct(Comment $comment, CommentUser $commentUser)
+    public function __construct($liked, $commentId, $likeCount)
     {
-        $this->comment = $comment;
-        $this->commentUser = $commentUser;
+        $this->liked = $liked;
+        $this->commentId = $commentId;
+        $this->likeCount = $likeCount;
     }
 
     /**
@@ -45,6 +46,6 @@ class NewCommentEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('post');
+        return new Channel('like');
     }
 }

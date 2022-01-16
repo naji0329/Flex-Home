@@ -1,5 +1,21 @@
 <?php
+Route::get('push', function(){
+    //require __DIR__ . '/vendor/autoload.php';
 
+      $options = array(
+        'cluster' => 'ap1',
+        'useTLS' => true
+      );
+      $pusher = new Pusher\Pusher(
+        '629e61b22d8769aff09b',
+        '456b1999eb55c0c25ca2',
+        '1328301',
+        $options
+      );
+
+      $data['message'] = 'hello world';
+      $pusher->trigger('my-channel', 'my-event', $data);
+})->name('comment.setting');
 Route::group(['namespace' => 'Botble\Comment\Http\Controllers', 'middleware' => ['web', 'core']], function () {
 
     Route::group(['prefix' => BaseHelper::getAdminPrefix(), 'middleware' => 'auth'], function () {

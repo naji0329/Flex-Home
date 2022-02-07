@@ -7,6 +7,7 @@ namespace Botble\Comment\Http\Controllers\API;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\Comment\Models\Comment;
+use Botble\Comment\Models\CommentUser;
 use Botble\Comment\Repositories\Interfaces\CommentInterface;
 use Botble\Comment\Repositories\Interfaces\CommentLikeInterface;
 use Botble\Comment\Repositories\Interfaces\CommentRatingInterface;
@@ -84,19 +85,21 @@ class CommentFrontController extends BaseController
             'comment',
             'parent_id',
             'rating',
+            'status',
         ])
         );
         if (setting('plugin_comment_rating', true) && $comment) {
             $comment->rating = $commentRatingRepo->storageRating($reference, $user, $request->input('rating', 0));
             $comment->rated = $commentRatingRepo->getRatingOfArticle($reference, $user);
         }
-      
+
         broadcast(new NewCommentEvent($comment, $user))->toOthers();
         return $this->response->setData($comment);
     }
 
     public function getComments(Request $request, CommentRecommendInterface $commentRecommendRepo, CommentRatingInterface $commentRatingRepo)
     {
+
         if (!($reference = $this->reference($request))) {
             return $this->response
                 ->setError()
@@ -107,6 +110,7 @@ class CommentFrontController extends BaseController
         $page = $request->input('page', 1);
         $limit = $request->input('limit', 5);
         $sort = $request->input('sort', 'newest');
+        $email = $request->input('email', '');
 
         [$comments, $attrs] = $this->commentRepository->getComments($reference, $parentId, $page, $limit, $sort);
 
@@ -159,7 +163,7 @@ class CommentFrontController extends BaseController
         }
         broadcast(new DeleteCommentEvent($comment));
         $this->commentRepository->delete($comment);
-        
+
 
         return $this->response
             ->setMessage(__('Delete comment successfully'));
@@ -271,5 +275,14 @@ class CommentFrontController extends BaseController
             'reference'         => 'required',
             'comment'           => 'required|min:5'
         ]);
+    }
+    public function usercheck(Request $request) {
+        $email = $request->input('data');
+        if (CommentUser::where('email', $email)->exists()) {
+            return $this->response->setData(true);
+        }
+        if (CommentUser::where('email', $email)->doesntExist()) {
+            return $this->response->setData(false);
+        }
     }
 }

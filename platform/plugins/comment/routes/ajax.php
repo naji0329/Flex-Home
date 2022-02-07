@@ -43,9 +43,11 @@ if (defined('THEME_MODULE_SCREEN_NAME')) {
                 Route::post('change-avatar', 'CommentFrontController@changeAvatar')->name('update-avatar');
 
                 Route::post('recommend', 'CommentFrontController@recommend')->name('recommend');
+                Route::post('usercheck', 'CommentFrontController@usercheck')->name('usercheck');
             });
 
             Route::get('getComments', 'CommentFrontController@getComments')->name('list');
+
         });
 
     });

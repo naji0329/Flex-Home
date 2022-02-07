@@ -26,7 +26,7 @@
                         <comment-box :parent-id="comment.id" auto-focus=true />
                     </div>
                 </div>
-
+                 {{comment.status}}
                 <!-- Edit form -->
                 <comment-box
                     auto-focus="true"
@@ -37,6 +37,7 @@
                     :on-cancel="onCancel"
                     :parent-id="comment.parent_id"
                     :comment-id="comment.id"
+                    :status = "comment.status"
                 />
 
 
@@ -102,7 +103,7 @@ export default {
             });
             window.Echo.channel('like')
             .listen('.Botble\\Comment\\Events\\NewLikeEvent', (e) => {
-                
+
                 if( self.comment.id == e.commentId && !self.activePage){
                     self.comment.liked = !self.comment.liked;
                     self.comment.like_count += e.liked ? 1 : -1;
@@ -143,7 +144,7 @@ export default {
         }
     },
     methods: {
-        
+
         replyIt() {
             this.showReply = true;
         },

@@ -29,9 +29,11 @@
         "css-loader": "^6.3.0",
         "laravel-echo": "^1.11.3",
         "moment": "^2.29.1",
+        "nodemon": "^2.0.15",
         "postcss": "^8.3.8",
         "pusher-js": "^7.0.3",
         "sanitize-html": "^2.5.1",
-        "vue-template-compiler": "^2.6.14"
+        "vue-template-compiler": "^2.6.14",
+        "emailjs-com": "^3.2.0"
     }
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="bb-comment">
-        <comment-header :recommend="recommend" :has-rating="hasRating" />
-        <comment-box :has-rating="hasRating" />
+        <comment-header :recommend="recommend" :has-rating="hasRating" :email-data="getUser"/>
+        <comment-box :has-rating="hasRating" :email="email"/>
         <div class="bb-loading" v-if="isLoading"></div>
         <div class="bb-comment-list" v-if="!isLoading">
             <comment-item v-for="(comment, index) in comments" :key="comment.id" :comment="comment" :on-delete-item="() => onDeletedItem(index)" />
@@ -50,6 +50,7 @@ export default {
             error: false,
             comments: [],
             recommend: {},
+            email: '',
             reactive: {
                 userData: null,
                 attrs: null,
@@ -137,6 +138,10 @@ export default {
         }
     },
     methods: {
+        getUser(email) {
+           this.email = email;
+           console.log(this.email);
+        },
         async onLoginWithGuard(user) {
             this.setSoftLoading(true);
             try {

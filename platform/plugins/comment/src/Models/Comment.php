@@ -31,7 +31,7 @@ class Comment extends BaseModel
         'status',
         'parent_id',
         'reply_count',
-
+        'status',
     ];
 
     /**
